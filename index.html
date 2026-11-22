@@ -7,42 +7,8 @@
 </head>
 <body>
 <center>
-<table border="1" cellpadding="8" cellspacing="0">
-<tr>
-<th>事件</th>
-<th>日期</th>
-<th>状态</th>
-</tr>
-<tr>
-<td>认识 uu</td>
-<td align="center">2026-06-18</td>
-<td id="know">计算中...</td>
-</tr>
-<tr>
-<td>第一次和 uu 见面</td>
-<td align="center">2026-10-27</td>
-<td id="meet">计算中...</td>
-</tr>
-<tr>
-<td>第一次和 uu 亲亲</td>
-<td align="center">2026-11-15</td>
-<td id="kiss">计算中...</td>
-</tr>
-<tr>
-<td>第一次和 uu 抱抱</td>
-<td align="center">2026-11-15</td>
-<td id="hug">计算中...</td>
-</tr>
-<tr>
-<td>第一次和 uu 拉手手散步</td>
-<td align="center">2026-11-16</td>
-<td id="walk">计算中...</td>
-</tr>
-<tr>
-<td>捏捏乐？！！</td>
-<td align="center">2026-11-15</td>
-<td id="squeeze">计算中...</td>
-</tr>
+<table border="1" cellpadding="8" cellspacing="0" id="t">
+<tr><th>事件</th><th>日期</th><th>状态</th></tr>
 </table>
 
 <p>关系进展：朋友以上、恋人未满（我认为的）</p>
@@ -51,34 +17,29 @@
 <p>Powered by <a href="https://sakurasnow.cn" target="_blank">夜桜侵雪</a></p>
 </center>
 <script>
-const now = new Date();
-const msPerDay = 86400000;
+// type: "since" = 第 N 天（含当天），"count" = 倒计时 / 已过去
+const events = [
+  ["认识 uu",             "2026-06-18", "since"],
+  ["第一次和 uu 见面",     "2026-10-27", "since"],
+  ["第一次和 uu 亲亲",     "2026-11-15", "count"],
+  ["第一次和 uu 抱抱",     "2026-11-15", "count"],
+  ["第一次和 uu 拉手手散步", "2026-11-16", "count"],
+  ["捏捏乐？！！",         "2026-11-15", "count"],
+];
 
-// 认识 uu
-const knowStart = new Date(2026, 5, 18);
-const knowDays = Math.floor((now - knowStart) / msPerDay) + 1;
-document.getElementById("know").textContent = "第 " + knowDays + " 天";
+const DAY = 86400000;
+const d = new Date();
+const today = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
-// 第一次见面
-const meetStart = new Date(2026, 9, 27);
-const meetDays = Math.floor((now - meetStart) / msPerDay) + 1;
-document.getElementById("meet").textContent = "第 " + meetDays + " 天";
-
-// 倒计时
-const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-function countdown(id, y, m, d) {
-  const target = new Date(y, m - 1, d);
-  const diff = Math.round((target - today) / msPerDay);
-  let text;
-  if (diff > 0) text = "还有 " + diff + " 天";
-  else if (diff === 0) text = "就是今天！";
-  else text = "已过去 " + (-diff) + " 天";
-  document.getElementById(id).textContent = text;
+function status(date, type) {
+  const diff = Math.round((new Date(date + "T00:00") - today) / DAY);
+  if (type === "since") return `第 ${1 - diff} 天`;
+  return diff > 0 ? `还有 ${diff} 天` : diff ? `已过去 ${-diff} 天` : "就是今天！";
 }
-countdown("kiss", 2026, 11, 15);
-countdown("hug", 2026, 11, 15);
-countdown("walk", 2026, 11, 16);
-countdown("squeeze", 2026, 11, 15);
+
+document.getElementById("t").innerHTML += events.map(([name, date, type]) =>
+  `<tr><td>${name}</td><td align="center">${date}</td><td>${status(date, type)}</td></tr>`
+).join("");
 </script>
 </body>
 </html>
