@@ -1,45 +1,12 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>永远爱 uu ！</title>
-</head>
-<body>
-<center>
-<table border="1" cellpadding="8" cellspacing="0" id="t">
-<tr><th>事件</th><th>日期</th><th>状态</th></tr>
-</table>
-
-<p>关系进展：朋友以上、恋人未满（我认为的）</p>
-
-<hr width="80%">
-<p>Powered by <a href="https://sakurasnow.cn" target="_blank">夜桜侵雪</a></p>
-</center>
-<script>
-// type: "since" = 第 N 天（含当天），"count" = 倒计时 / 已过去
-const events = [
-  ["认识 uu",             "2026-06-18", "since"],
-  ["第一次和 uu 见面",     "2026-10-27", "since"],
-  ["第一次和 uu 亲亲",     "2026-11-15", "count"],
-  ["第一次和 uu 抱抱",     "2026-11-15", "count"],
-  ["第一次和 uu 拉手手散步", "2026-11-16", "count"],
-  ["捏捏乐？！！",         "2026-11-15", "count"],
-];
-
-const DAY = 86400000;
-const d = new Date();
-const today = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-
-function status(date, type) {
-  const diff = Math.round((new Date(date + "T00:00") - today) / DAY);
-  if (type === "since") return `第 ${1 - diff} 天`;
-  return diff > 0 ? `还有 ${diff} 天` : diff ? `已过去 ${-diff} 天` : "就是今天！";
-}
-
-document.getElementById("t").innerHTML += events.map(([name, date, type]) =>
-  `<tr><td>${name}</td><td align="center">${date}</td><td>${status(date, type)}</td></tr>`
-).join("");
+<!DOCTYPE html><html lang=zh-CN><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>永远爱 uu ！</title><link rel=icon href=data:,><center><table border=1 cellpadding=8 cellspacing=0><tr><th>事件<th>日期<th>状态
+<tr class=s><td>认识 uu<td align=center>2026-06-18<td class=x>
+<tr class=s><td>第一次和 uu 见面<td align=center>2026-10-27<td class=x>
+<tr><td>第一次和 uu 亲亲<td align=center>2026-11-15<td class=x>
+<tr><td>第一次和 uu 抱抱<td align=center>2026-11-15<td class=x>
+<tr><td>第一次和 uu 拉手手散步<td align=center>2026-11-16<td class=x>
+<tr><td>捏捏乐？！！<td align=center>2026-11-15<td class=x>
+</table><p>关系进展：朋友以上、恋人未满（我认为的）<hr width=80%><p>Powered by <a href=https://sakurasnow.cn target=_blank rel=noopener>夜桜侵雪</a></center><script>
+n=new Date;T=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5;
+for(x of document.getElementsByClassName("x")){p=x.parentNode;f=Date.parse(p.cells[1].textContent)/864e5-T;
+x.textContent=p.className?`第 ${1-f} 天`:f>0?`还有 ${f} 天`:f?`已过去 ${-f} 天`:"就是今天！"}
 </script>
-</body>
-</html>
