@@ -1,12 +1,58 @@
-<!DOCTYPE html><html lang=zh-CN><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>永远爱 uu ！</title><link rel=icon href=data:,><center><table border=1 cellpadding=8 cellspacing=0><tr><th>事件<th>日期<th>状态
-<tr class=s><td>认识 uu<td align=center>2026-06-18<td class=x>
-<tr class=s><td>第一次和 uu 见面<td align=center>2026-10-27<td class=x>
-<tr><td>第一次和 uu 亲亲<td align=center>2026-11-15<td class=x>
-<tr><td>第一次和 uu 抱抱<td align=center>2026-11-15<td class=x>
-<tr><td>第一次和 uu 拉手手散步<td align=center>2026-11-16<td class=x>
-<tr><td>捏捏乐？！！<td align=center>2026-11-15<td class=x>
-</table><p>关系进展：朋友以上、恋人未满（我认为的）<hr width=80%><p>Powered by <a href=https://sakurasnow.cn target=_blank rel=noopener>夜桜侵雪</a></center><script>
-n=new Date;T=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5;
-for(x of document.getElementsByClassName("x")){p=x.parentNode;f=Date.parse(p.cells[1].textContent)/864e5-T;
-x.textContent=p.className?`第 ${1-f} 天`:f>0?`还有 ${f} 天`:f?`已过去 ${-f} 天`:"就是今天！"}
-</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>永远爱 uu ！</title>
+  <link rel="icon" href="data:,">
+  <style>
+    body { text-align: center; }
+    table { margin: 0 auto; border-collapse: collapse; }
+    th, td { border: 1px solid; padding: 8px; }
+    td:nth-child(2) { text-align: center; }
+    hr { width: 80%; }
+  </style>
+</head>
+<body>
+  <main>
+    <table>
+      <thead>
+        <tr><th>事件</th><th>日期</th><th>状态</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>认识 uu</td><td>2026-06-18</td><td></td></tr>
+        <tr><td>第一次和 uu 见面</td><td>2026-10-27</td><td></td></tr>
+        <tr><td>第一次和 uu 亲亲</td><td>2026-11-15</td><td></td></tr>
+        <tr><td>第一次和 uu 抱抱</td><td>2026-11-15</td><td></td></tr>
+        <tr><td>第一次和 uu 拉手手散步</td><td>2026-11-16</td><td></td></tr>
+        <tr><td>捏捏乐？！！</td><td>2026-11-15</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <p>关系进展：朋友以上、恋人未满（我认为的）</p>
+    <hr>
+    <p>
+      Powered by
+      <a href="https://sakurasnow.cn" target="_blank" rel="noopener noreferrer">夜桜侵雪</a>
+    </p>
+  </main>
+
+  <script>
+    (() => {
+      const DAY = 864e5;
+      const now = new Date();
+      const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / DAY;
+
+      document.querySelectorAll("tbody tr").forEach((row) => {
+        const [, dateCell, statusCell] = row.cells;
+        const diff = Math.round(Date.parse(dateCell.textContent.trim()) / DAY - today);
+
+        statusCell.textContent =
+          diff > 0 ? `还有 ${diff} 天` :
+          diff < 0 ? `已过去 ${-diff} 天` :
+          "就是今天！";
+      });
+    })();
+  </script>
+</body>
+</html>
