@@ -1,132 +1,36 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>永远爱 uu ！</title>
-  <link rel="icon" href="data:,">
-  <style>
-    body { text-align: center; font-family: system-ui, -apple-system, sans-serif; }
-    table { margin: 0 auto; border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-    td:nth-child(2) { text-align: center; }
-    hr { width: 80%; margin: 1.5rem auto; }
-    .slider-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      width: 80%;
-      max-width: 420px;
-      margin: 1.5rem auto;
-    }
-    .slider-container span {
-      white-space: nowrap;
-      font-weight: 500;
-    }
-    input[type="range"] {
-      flex: 1;
-      height: 6px;
-      border-radius: 3px;
-      background: #ddd;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #5a9fd4;
-      cursor: pointer;
-    }
-    input[type="range"]::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #5a9fd4;
-      cursor: pointer;
-      border: none;
-    }
-    .question {
-      margin: 0.5rem 0 0.3rem;
-      font-size: 1.05rem;
-    }
-    .percentage {
-      margin: 0 0 1.5rem;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #5a9fd4;
-    }
-    footer a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>永远爱 uu ！</title>
+<link rel="icon" href="data:,">
+<style>body{text-align:center;font-family:system-ui}table{margin:auto}td:nth-child(2){text-align:center}input{accent-color:#39c5bb}output,a{color:#39c5bb}</style>
 </head>
 <body>
-  <main>
-    <table>
-      <thead>
-        <tr><th>事件</th><th>日期</th><th>状态</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>认识 uu</td><td>2026-06-18</td><td></td></tr>
-        <tr><td>第一次和 uu 见面</td><td>2026-10-27</td><td></td></tr>
-        <tr><td>第一次和 uu 亲亲</td><td>2026-11-15</td><td></td></tr>
-        <tr><td>第一次和 uu 抱抱</td><td>2026-11-15</td><td></td></tr>
-        <tr><td>捏捏乐？！！</td><td>2026-11-15</td><td></td></tr>
-        <tr><td>第一次和 uu 拉手手散步</td><td>2026-11-16</td><td></td></tr>
-      </tbody>
-    </table>
+<table border="1" cellpadding="8">
+<thead><tr><th>事件<th>日期<th>状态
+<tbody>
+<tr><td>认识 uu<td>2026-06-18<td>
+<tr><td>第一次和 uu 见面<td>2026-10-27<td>
+<tr><td>第一次和 uu 亲亲<td>2026-11-15<td>
+<tr><td>第一次和 uu 抱抱<td>2026-11-15<td>
+<tr><td>捏捏乐？！！<td>2026-11-15<td>
+<tr><td>第一次和 uu 拉手手散步<td>2026-11-16<td>
+</table>
 
-    <div class="slider-container">
-      <span>朋友</span>
-      <input type="range" id="relationSlider" min="0" max="100" value="40" aria-label="关系进展">
-      <span>恋人</span>
-    </div>
-    <p class="question">你觉得呢？</p>
-    <p class="percentage" id="percentageDisplay">40%</p>
+<p>朋友 <input type="range" id="s" value="40" oninput="o.value=s.value+'%'"> 恋人</p>
+<p>你觉得呢？<br><output id="o">100%</output></p>
 
-    <hr>
-    <p>
-      Powered by
-      <a href="https://sakurasnow.cn" target="_blank" rel="noopener noreferrer">夜桜侵雪</a>
-      for
-      <a href="https://x.com/conv1x1" target="_blank" rel="noopener noreferrer">conv1x1</a>
-    </p>
-  </main>
+<hr width="80%">
+<p>Powered by <a href="https://sakurasnow.cn" target="_blank" rel="noopener">夜桜侵雪</a> for <a href="https://x.com/conv1x1" target="_blank" rel="noopener">conv1x1</a></p>
 
-  <script>
-    (() => {
-      const DAY = 864e5;
-      const now = new Date();
-      const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / DAY;
-
-      document.querySelectorAll("tbody tr").forEach((row) => {
-        const [, dateCell, statusCell] = row.cells;
-        const diff = Math.round(Date.parse(dateCell.textContent.trim()) / DAY - today);
-
-        statusCell.textContent =
-          diff > 0 ? `还有 ${diff} 天` :
-          diff < 0 ? `已过去 ${-diff} 天` :
-          "就是今天！";
-      });
-
-      // 滑块
-      const slider = document.getElementById("relationSlider");
-      const percentageDisplay = document.getElementById("percentageDisplay");
-      const updatePercentage = () => {
-        percentageDisplay.textContent = slider.value + "%";
-      };
-      slider.addEventListener("input", updatePercentage);
-      updatePercentage();
-    })();
-  </script>
+<script>
+const n=new Date(),t=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate());
+for(const r of document.querySelectorAll("tbody tr")){
+  const d=Math.round((Date.parse(r.cells[1].textContent)-t)/864e5);
+  r.cells[2].textContent=d>0?`还有 ${d} 天`:d<0?`已过去 ${-d} 天`:"就是今天！";
+}
+</script>
 </body>
 </html>
